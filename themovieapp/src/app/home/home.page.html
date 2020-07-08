@@ -1,0 +1,15 @@
+<ion-header color="secondary">
+  <ion-toolbar>
+    <ion-title>The Movie App</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="givenName">
+  <hr>
+  <p>You are logged in as: <b>{{ givenName }}</b></p>
+</div>

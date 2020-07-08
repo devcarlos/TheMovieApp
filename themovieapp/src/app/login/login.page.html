@@ -1,0 +1,39 @@
+<ion-header color="secondary">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col>
+      <div class="ion-text-center">
+        <img src="assets/mojix.png" width="100">  
+      </div>
+    </ion-col>
+  </ion-row>
+  <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          <ion-item>
+            <ion-input placeholder="Username" name="username" id="loginField"
+                       type="text" required [(ngModel)]="username" #email></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Password" name="password" id="passwordField"
+                       type="password" required [(ngModel)]="password"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <ion-button (click)="login()" expand="block" class="submit-btn" [disabled]="!loginForm.form.valid">
+          Login
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
