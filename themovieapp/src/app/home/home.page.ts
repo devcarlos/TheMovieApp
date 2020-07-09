@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,15 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private toastController: ToastController) {
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: `You are logged in as ${this.givenName()}`,
+      duration: 2000
+    });
+    toast.present();
   }
 
   logout() {
@@ -17,8 +26,16 @@ export class HomePage {
     this.router.navigate(['/login'])
   }
 
-  get givenName() {
-    //TODO: handle storage
+  goToMovies() {
+    console.log("navigate to movies");
+    this.router.navigate(['/movies'])
+  }
+
+  ionViewDidEnter() {
+    this.presentToast()
+  }
+
+  givenName() {
     return "Carlos Alcala";
   }
 }
