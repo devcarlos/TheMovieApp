@@ -1,18 +1,30 @@
 import { TestBed, inject, async } from "@angular/core/testing";
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { StorageService } from './storage.service';
+import { IonicStorageModule, Storage } from '@ionic/storage';
 import { MoviesPage } from '../movies/movies.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 let storageService: StorageService = null;
 let httpMock: HttpTestingController = null;
 
+const storageIonicMock: any = {
+  get: () => new Promise<any>((resolve, reject) => resolve('As2342fAfgsdr')),
+  set: () => new Promise<any>((resolve, reject) => resolve('As2342fAfgsdr'))
+};
+
 describe("Provider: StorageService", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MoviesPage],
-      imports: [HttpClientTestingModule],
-      providers: [StorageService],
+      imports: [HttpClientTestingModule, IonicStorageModule],
+      providers: [
+        StorageService, 
+        {
+          provide: Storage,
+          useValue: storageIonicMock
+        }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 

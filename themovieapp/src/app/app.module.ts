@@ -12,6 +12,7 @@ import { LoginPageModule } from "./login/login.module";
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './interceptors';
 import { FormsModule } from '@angular/forms';
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     IonicModule.forRoot(),
     AppRoutingModule,
     LoginPageModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     httpInterceptorProviders,
