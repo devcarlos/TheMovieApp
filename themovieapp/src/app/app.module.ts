@@ -10,11 +10,14 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { LoginPageModule } from "./login/login.module";
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './interceptors';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    FormsModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -22,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
+    httpInterceptorProviders,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

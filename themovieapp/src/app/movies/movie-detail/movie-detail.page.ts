@@ -21,7 +21,6 @@ export class MovieDetailPage implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       const movieId = paramMap.get("movieId");
-      console.log('MOVIE ID => ', movieId);
       this.movie = this.storageService.getMovie(Number(movieId));
     });
   }

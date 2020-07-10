@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-// import { HTTP } from "@ionic-native/http/ngx";
+import { Observable } from "rxjs";
 
 import { Movie } from "./../interfaces/movie";
 import { Result } from "./../interfaces/result";
@@ -9,27 +9,44 @@ import { Result } from "./../interfaces/result";
   providedIn: "root",
 })
 export class StorageService {
+  response: Observable<Result>;
   movies: Movie[] = [];
+  result: Result = null;
 
   private API_HOST = "https://api.themoviedb.org/";
   private IMAGE_HOST = "https://image.tmdb.org/t/p/";
-  private API_KEY = "af44e351eba4d21316a7fbc75f41375d";
-  private ENDPOINT = `${this.API_HOST}3/movie/popular?api_key=${this.API_KEY}`;
+  private ENDPOINT = `${this.API_HOST}3/movie/popular?api_key=API_KEY`;
+  // private ENDPOINT = `${this.API_HOST}3/movie/popular?api_key=API_KEY${this.API_KEY}`;
 
   constructor(private http: HttpClient) {}
-  // constructor(private http: HTTP) {}
 
+  //REQUEST HTTP CALL
+  request() {
+    //HTTP Callback to API endpoint
+    this.response = this.http.get<Result>(this.ENDPOINT);
+    return this.response;
+  }
+
+  // DATA LOAD FOR TESTING
+  load() {
+    this.http.get("assets/data/results.json").subscribe((data: Result) => {
+      console.log('RESULTS => ', data);
+      this.result = data;
+    });
+  }
+
+  // GET DATA 
   getData() {
-    const endpoint = this.ENDPOINT;
-    return this.http.get<Result>(endpoint);
+    //return response from request
+    return this.request();
   }
 
   // READ MOVIES
   async getMovies(): Promise<Movie[]> {
+    //return a Promise of Movie array
     return await new Promise<Movie[]>((resolve, reject) => {
       //check movies in local storage
       if (this.movies && this.movies.length > 0) {
-        console.log("MOVIES FOUND => TRUE");
         resolve(this.movies);
         return;
       }
@@ -40,13 +57,11 @@ export class StorageService {
           console.log(result);
           let results = result.results;
 
-          let size = "w342";
-
+          // Update Movies image URL
           this.movies = results.map((movie) => {
             let path = movie.poster_path;
+            let size = "w342";
             let imageURL = `${this.IMAGE_HOST}/${size}/${path}`;
-            console.log("PATH => ", path);
-            console.log("imageURL => ", imageURL);
 
             movie.imageURL = imageURL;
             return movie;
@@ -64,7 +79,7 @@ export class StorageService {
     });
   }
 
-  // READ MOVIE
+  // READ MOVIE BY ID
   getMovie(movieId: Number) {
     return {
       ...this.movies.find((movie) => {

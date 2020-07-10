@@ -36,6 +36,6 @@ export class HomePage {
   }
 
   givenName() {
-    return "Carlos Alcala";
+    return "Mojix";
   }
 }

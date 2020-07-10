@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 
 import { StorageService } from './../services/storage.service';
 import { Result } from './../interfaces/result';

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,6 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router: Router,
-    private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
     ) {}
